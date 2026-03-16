@@ -41,6 +41,34 @@ def main():
 
             input("\nНажмите Enter чтобы продолжить...")
 
+        elif choice == "2":
+            print("\n--- Просмотр книг ---")
+
+            if not library.get_all_books():
+                print("\nВ библиотеке пока нет книг.")
+                input("\nНажмите Enter чтобы продолжить...")
+                continue
+
+            print("\nКак сортировать?")
+            print("1. По названию")
+            print("2. По автору")
+            print("3. По жанру")
+            print("4. Без сортировки")
+
+            sort_choice = input("Выберите (1-4): ")
+
+            if sort_choice == "1":
+                books = library.get_sorted_books("title")
+            elif sort_choice == "2":
+                books = library.get_sorted_books("author")
+            elif sort_choice == "3":
+                books = library.get_sorted_books("genre")
+            else:
+                books = library.get_all_books()
+
+            library.print_books(books)
+            input("\nНажмите Enter чтобы продолжить...")
+
         elif choice == "8":
             print("До свидания!")
             break
