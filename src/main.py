@@ -87,6 +87,24 @@ def main():
 
             input("\nНажмите Enter чтобы продолжить...")
 
+        elif choice == "4":
+            print("\n--- Изменение статуса прочтения ---")
+
+            if not library.get_all_books():
+                print("\nВ библиотеке пока нет книг.")
+                input("\nНажмите Enter чтобы продолжить...")
+                continue
+
+            library.print_books(library.get_all_books())
+
+            try:
+                book_id = int(input("\nВведите ID книги: "))
+                library.toggle_read(book_id)
+            except ValueError:
+                print("Ошибка! Введите число.")
+
+            input("\nНажмите Enter чтобы продолжить...")
+
         elif choice == "5":
             print("\n--- Избранные книги ---")
 
