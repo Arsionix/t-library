@@ -69,6 +69,35 @@ def main():
             library.print_books(books)
             input("\nНажмите Enter чтобы продолжить...")
 
+        elif choice == "3":
+            print("\n--- Избранное ---")
+
+            if not library.get_all_books():
+                print("\nВ библиотеке пока нет книг.")
+                input("\nНажмите Enter чтобы продолжить...")
+                continue
+
+            library.print_books(library.get_all_books())
+
+            try:
+                book_id = int(input("\nВведите ID книги: "))
+                library.toggle_favorite(book_id)
+            except ValueError:
+                print("Ошибка! Введите число.")
+
+            input("\nНажмите Enter чтобы продолжить...")
+
+        elif choice == "5":
+            print("\n--- Избранные книги ---")
+
+            favorites = library.get_favorite_books()
+            if favorites:
+                library.print_books(favorites)
+            else:
+                print("\nВ избранном пока нет книг.")
+
+            input("\nНажмите Enter чтобы продолжить...")
+
         elif choice == "8":
             print("До свидания!")
             break

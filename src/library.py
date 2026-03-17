@@ -10,6 +10,29 @@ class Library:
         self.next_id += 1
         print(f"\nКнига '{book.title}' добавлена!")
 
+    def find_book_by_id(self, book_id):
+        for book in self.books:
+            if book.id == book_id:
+                return book
+        return None
+
+    def toggle_favorite(self, book_id):
+        book = self.find_book_by_id(book_id)
+        if book:
+            book.is_favorite = not book.is_favorite
+            if book.is_favorite:
+                print(f"\nКнига '{book.title}' добавлена в избранное!")
+            else:
+                print(f"\nКнига '{book.title}' убрана из избранного!")
+            return True
+        else:
+            print(f"\nКнига с ID {book_id} не найдена!")
+            return False
+
+    def get_favorite_books(self):
+        favorites = [book for book in self.books if book.is_favorite]
+        return favorites
+
     def get_all_books(self):
         return self.books
 
