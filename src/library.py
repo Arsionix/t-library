@@ -29,6 +29,19 @@ class Library:
             print(f"\nКнига с ID {book_id} не найдена!")
             return False
 
+    def toggle_read(self, book_id):
+        book = self.find_book_by_id(book_id)
+        if book:
+            book.is_read = not book.is_read
+            if book.is_read:
+                print(f"\nКнига '{book.title}' отмечена как прочитанная!")
+            else:
+                print(f"\nКнига '{book.title}' отмечена как непрочитанная!")
+            return True
+        else:
+            print(f"\nКнига с ID {book_id} не найдена!")
+            return False
+
     def get_favorite_books(self):
         favorites = [book for book in self.books if book.is_favorite]
         return favorites
