@@ -120,8 +120,6 @@ class Library:
                 results.append(book)
             elif keyword in book.author.lower():
                 results.append(book)
-            elif keyword in book.genre.lower():
-                results.append(book)
             elif keyword in book.description.lower():
                 results.append(book)
 
