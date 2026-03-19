@@ -59,6 +59,25 @@ class Library:
         else:
             return self.books
 
+    def get_filtered_books(self, genre=None, read_status=None):
+        filtered = self.books.copy()
+
+        if genre and genre != "все":
+            filtered = [book for book in filtered if book.genre.lower()
+                        == genre.lower()]
+
+        if read_status is not None:
+            filtered = [
+                book for book in filtered if book.is_read == read_status]
+
+        return filtered
+
+    def get_all_genres(self):
+        genres = set()
+        for book in self.books:
+            genres.add(book.genre)
+        return sorted(list(genres))
+
     def print_books(self, books_to_print):
         if not books_to_print:
             print("\nВ библиотеке пока нет книг.")
