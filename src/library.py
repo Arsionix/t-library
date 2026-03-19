@@ -103,6 +103,7 @@ class Library:
         if book:
             self.books.remove(book)
             print(f"\nКнига '{book.title}' удалена из библиотеки!")
+            self._recalculate_next_id()
             return True
         else:
             print(f"\nКнига с ID {book_id} не найдена!")
@@ -168,14 +169,26 @@ class Library:
                     book.is_favorite = book_data['is_favorite']
                     self.books.append(book)
 
-                self.next_id = data['next_id']
+                if 'next_id' in data:
+                    self.next_id = data['next_id']
+                else:
+                    self._recalculate_next_id()
 
                 print(f"Загружено {len(self.books)} книг из файла")
                 return True
 
         except FileNotFoundError:
             print("Файл с данными не найден. Создаём новую библиотеку.")
+            self.next_id = 1
             return False
         except json.JSONDecodeError:
             print("Файл с данными повреждён. Начинаем с чистой библиотеки.")
+            self.next_id = 1
             return False
+
+    def _recalculate_next_id(self):
+        if not self.books:
+            self.next_id = 1
+        else:
+            max_id = max(book.id for book in self.books)
+            self.next_id = max_id + 1
