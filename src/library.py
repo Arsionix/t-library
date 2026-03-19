@@ -102,3 +102,61 @@ class Library:
                 results.append(book)
 
         return results
+
+    def save_to_file(self, filename='data/library.json'):
+        import json
+        import os
+
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+
+        books_data = []
+        for book in self.books:
+            books_data.append({
+                'id': book.id,
+                'title': book.title,
+                'author': book.author,
+                'genre': book.genre,
+                'is_read': book.is_read,
+                'is_favorite': book.is_favorite
+            })
+
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump({
+                'books': books_data,
+                'next_id': self.next_id
+            }, f, ensure_ascii=False, indent=2)
+
+        print(f"\nДанные сохранены в файл {filename}")
+
+    def load_from_file(self, filename='data/library.json'):
+        import json
+
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+
+                self.books = []
+
+                for book_data in data['books']:
+                    from book import Book
+                    book = Book(
+                        title=book_data['title'],
+                        author=book_data['author'],
+                        genre=book_data['genre']
+                    )
+                    book.id = book_data['id']
+                    book.is_read = book_data['is_read']
+                    book.is_favorite = book_data['is_favorite']
+                    self.books.append(book)
+
+                self.next_id = data['next_id']
+
+                print(f"Загружено {len(self.books)} книг из файла")
+                return True
+
+        except FileNotFoundError:
+            print("Файл с данными не найден. Создаём новую библиотеку.")
+            return False
+        except json.JSONDecodeError:
+            print("Файл с данными повреждён. Начинаем с чистой библиотеки.")
+            return False

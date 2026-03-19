@@ -25,6 +25,10 @@ def show_menu():
 def main():
     library = Library()
 
+    print("Загрузка библиотеки...")
+    library.load_from_file()
+    input("\nНажмите Enter чтобы продолжить...")
+
     while True:
         clear_screen()
         show_menu()
@@ -38,6 +42,7 @@ def main():
 
             book = Book(title, author, genre)
             library.add_book(book)
+            library.save_to_file()
 
             input("\nНажмите Enter чтобы продолжить...")
 
@@ -81,7 +86,8 @@ def main():
 
             try:
                 book_id = int(input("\nВведите ID книги: "))
-                library.toggle_favorite(book_id)
+                if library.toggle_favorite(book_id):
+                    library.save_to_file()
             except ValueError:
                 print("Ошибка! Введите число.")
 
@@ -99,7 +105,8 @@ def main():
 
             try:
                 book_id = int(input("\nВведите ID книги: "))
-                library.toggle_read(book_id)
+                if library.toggle_read(book_id):
+                    library.save_to_file()
             except ValueError:
                 print("Ошибка! Введите число.")
 
@@ -128,18 +135,15 @@ def main():
 
             try:
                 book_id = int(input("\nВведите ID книги для удаления: "))
-
                 book = library.find_book_by_id(book_id)
                 if book:
                     print(f"\nВы точно хотите удалить '{book.title}'?")
                     confirm = input("Да/Нет (д/н): ")
                     if confirm.lower() in ['да', 'д', 'yes', 'y']:
-                        library.delete_book(book_id)
+                        if library.delete_book(book_id):
+                            library.save_to_file()
                     else:
                         print("Удаление отменено.")
-                else:
-                    print(f"Книга с ID {book_id} не найдена!")
-
             except ValueError:
                 print("Ошибка! Введите число.")
 
@@ -169,10 +173,12 @@ def main():
             input("\nНажмите Enter чтобы продолжить...")
 
         elif choice == "8":
+            print("\nСохраняем библиотеку...")
+            library.save_to_file()
             print("До свидания!")
             break
         else:
-            print(f"\nФункция {choice} в разработке...")
+            print(f"\nНеверный выбор! Введите число от 1 до 8.")
             input("Нажмите Enter чтобы продолжить...")
 
 
