@@ -39,8 +39,10 @@ def main():
             title = input("Название: ")
             author = input("Автор: ")
             genre = input("Жанр: ")
+            year = input("Год издания: ")
+            description = input("Краткое описание: ")
 
-            book = Book(title, author, genre)
+            book = Book(title, author, genre, year, description)
             library.add_book(book)
             library.save_to_file()
 
@@ -140,9 +142,10 @@ def main():
             print("1. По названию")
             print("2. По автору")
             print("3. По жанру")
-            print("4. Без сортировки")
+            print("4. По году издания")
+            print("5. Без сортировки")
 
-            sort_choice = input("Выберите (1-4): ")
+            sort_choice = input("Выберите (1-5): ")
 
             if sort_choice == "1":
                 books = library.get_sorted_books("title")
@@ -154,6 +157,10 @@ def main():
                     books = [b for b in books if b in books_to_sort]
             elif sort_choice == "3":
                 books = library.get_sorted_books("genre")
+                if filter_choice in ["2", "3", "4"]:
+                    books = [b for b in books if b in books_to_sort]
+            elif sort_choice == "4":
+                books = library.get_sorted_books("year")
                 if filter_choice in ["2", "3", "4"]:
                     books = [b for b in books if b in books_to_sort]
             else:

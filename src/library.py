@@ -56,6 +56,8 @@ class Library:
             return sorted(self.books, key=lambda book: book.author.lower())
         elif sort_by == "genre":
             return sorted(self.books, key=lambda book: book.genre.lower())
+        elif sort_by == "year":
+            return sorted(self.books, key=lambda book: book.year if book.year else 0)
         else:
             return self.books
 
@@ -95,6 +97,8 @@ class Library:
             print(f"Название: {book.title}")
             print(f"Автор: {book.author}")
             print(f"Жанр: {book.genre}")
+            print(f"Год: {book.year}")
+            print(f"Описание: {book.description}")
             print(f"Статус: {read_status} {fav_status}")
             print("-"*30)
 
@@ -120,6 +124,8 @@ class Library:
                 results.append(book)
             elif keyword in book.genre.lower():
                 results.append(book)
+            elif keyword in book.description.lower():
+                results.append(book)
 
         return results
 
@@ -136,6 +142,8 @@ class Library:
                 'title': book.title,
                 'author': book.author,
                 'genre': book.genre,
+                'year': book.year,
+                'description': book.description,
                 'is_read': book.is_read,
                 'is_favorite': book.is_favorite
             })
@@ -162,7 +170,9 @@ class Library:
                     book = Book(
                         title=book_data['title'],
                         author=book_data['author'],
-                        genre=book_data['genre']
+                        genre=book_data['genre'],
+                        year=book_data['year'],
+                        description=book_data['description']
                     )
                     book.id = book_data['id']
                     book.is_read = book_data['is_read']
