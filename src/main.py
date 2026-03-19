@@ -116,6 +116,35 @@ def main():
 
             input("\nНажмите Enter чтобы продолжить...")
 
+        elif choice == "6":
+            print("\n--- Удаление книги ---")
+
+            if not library.get_all_books():
+                print("\nВ библиотеке пока нет книг.")
+                input("\nНажмите Enter чтобы продолжить...")
+                continue
+
+            library.print_books(library.get_all_books())
+
+            try:
+                book_id = int(input("\nВведите ID книги для удаления: "))
+
+                book = library.find_book_by_id(book_id)
+                if book:
+                    print(f"\nВы точно хотите удалить '{book.title}'?")
+                    confirm = input("Да/Нет (д/н): ")
+                    if confirm.lower() in ['да', 'д', 'yes', 'y']:
+                        library.delete_book(book_id)
+                    else:
+                        print("Удаление отменено.")
+                else:
+                    print(f"Книга с ID {book_id} не найдена!")
+
+            except ValueError:
+                print("Ошибка! Введите число.")
+
+            input("\nНажмите Enter чтобы продолжить...")
+
         elif choice == "8":
             print("До свидания!")
             break
