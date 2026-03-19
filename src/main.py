@@ -141,11 +141,10 @@ def main():
             print("\nКак сортировать?")
             print("1. По названию")
             print("2. По автору")
-            print("3. По жанру")
-            print("4. По году издания")
-            print("5. Без сортировки")
+            print("3. По году издания")
+            print("4. Без сортировки")
 
-            sort_choice = input("Выберите (1-5): ")
+            sort_choice = input("Выберите (1-4): ")
 
             if sort_choice == "1":
                 books = library.get_sorted_books("title")
@@ -156,10 +155,6 @@ def main():
                 if filter_choice in ["2", "3", "4"]:
                     books = [b for b in books if b in books_to_sort]
             elif sort_choice == "3":
-                books = library.get_sorted_books("genre")
-                if filter_choice in ["2", "3", "4"]:
-                    books = [b for b in books if b in books_to_sort]
-            elif sort_choice == "4":
                 books = library.get_sorted_books("year")
                 if filter_choice in ["2", "3", "4"]:
                     books = [b for b in books if b in books_to_sort]

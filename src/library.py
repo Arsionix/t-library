@@ -54,10 +54,8 @@ class Library:
             return sorted(self.books, key=lambda book: book.title.lower())
         elif sort_by == "author":
             return sorted(self.books, key=lambda book: book.author.lower())
-        elif sort_by == "genre":
-            return sorted(self.books, key=lambda book: book.genre.lower())
         elif sort_by == "year":
-            return sorted(self.books, key=lambda book: book.year if book.year else 0)
+            return sorted(self.books, key=lambda book: book.year if book.year else 9999)
         else:
             return self.books
 
