@@ -78,3 +78,13 @@ class Library:
             print(f"Жанр: {book.genre}")
             print(f"Статус: {read_status} {fav_status}")
             print("-"*30)
+
+    def delete_book(self, book_id):
+        book = self.find_book_by_id(book_id)
+        if book:
+            self.books.remove(book)
+            print(f"\nКнига '{book.title}' удалена из библиотеки!")
+            return True
+        else:
+            print(f"\nКнига с ID {book_id} не найдена!")
+            return False
