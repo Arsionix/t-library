@@ -88,3 +88,17 @@ class Library:
         else:
             print(f"\nКнига с ID {book_id} не найдена!")
             return False
+
+    def search_books(self, keyword):
+        keyword = keyword.lower()
+        results = []
+
+        for book in self.books:
+            if keyword in book.title.lower():
+                results.append(book)
+            elif keyword in book.author.lower():
+                results.append(book)
+            elif keyword in book.genre.lower():
+                results.append(book)
+
+        return results

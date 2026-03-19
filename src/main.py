@@ -145,6 +145,29 @@ def main():
 
             input("\nНажмите Enter чтобы продолжить...")
 
+        elif choice == "7":
+            print("\n--- Поиск книг ---")
+
+            if not library.get_all_books():
+                print("\nВ библиотеке пока нет книг.")
+                input("\nНажмите Enter чтобы продолжить...")
+                continue
+
+            keyword = input("Введите слово для поиска: ")
+
+            if keyword.strip():
+                results = library.search_books(keyword)
+
+                if results:
+                    print(f"\nНайдено книг: {len(results)}")
+                    library.print_books(results)
+                else:
+                    print(f"\nКниги по запросу '{keyword}' не найдены.")
+            else:
+                print("Вы ничего не ввели!")
+
+            input("\nНажмите Enter чтобы продолжить...")
+
         elif choice == "8":
             print("До свидания!")
             break
