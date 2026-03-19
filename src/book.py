@@ -1,9 +1,11 @@
 class Book:
 
-    def __init__(self, title, author, genre, book_id=None, is_read=False, is_favorite=False):
+    def __init__(self, title, author, genre, year, description, book_id=None, is_read=False, is_favorite=False):
         self.title = title
         self.author = author
         self.genre = genre
+        self.year = year
+        self.description = description
         self.is_read = is_read
         self.is_favorite = is_favorite
         self.id = book_id
@@ -19,6 +21,8 @@ class Book:
             'title': self.title,
             'author': self.author,
             'genre': self.genre,
+            'year': self.year,
+            'description': self.description,
             'is_read': self.is_read,
             'is_favorite': self.is_favorite
         }
@@ -29,6 +33,8 @@ class Book:
             title=data['title'],
             author=data['author'],
             genre=data['genre'],
+            year=data.get('year', ''),
+            description=data.get('description', ''),
             book_id=data['id'],
             is_read=data['is_read'],
             is_favorite=data['is_favorite']
